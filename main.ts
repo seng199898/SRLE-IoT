@@ -160,6 +160,7 @@ namespace SRLE {
     let Topic_3 = ""
     let Topic_4 = ""
     let RECDATA = ""
+    let response_data = ""
     let HTTP_IP = ""
     let HTTP_PORT = ""
     let SRLE_IP = "0.0.0.0"
@@ -513,7 +514,7 @@ namespace SRLE {
             basic.pause(100)
             if (SRLEStatus == "HTTP_REQUEST") {
                 SRLEStatus = "";
-                return RECDATA
+                return response_data
             } else if (SRLEStatus == "HTTP_REQUESTFailed") {
                 SRLEStatus = "";
                 return "requestFailed"
@@ -727,6 +728,10 @@ namespace SRLE {
         for (let i = 0; i < len; i++) {
             RECDATA += String.fromCharCode(tempRecbuf[i])
         }
+
+        if (SRLEStatus == 'HTTP_REQUEST') {
+            response_data = RECDATA;
+        }
     }
 
     function SRLE_InquireStatus(): void {
@@ -834,7 +839,7 @@ namespace SRLE {
                 break;
             case HTTP_REQUEST:
                 SRLEStatus = "HTTP_REQUEST"
-                if (RECDATA == "") {
+                if (response_data == "") {
                     SRLE_GetData(tempStatus)
                 }
                 break;
