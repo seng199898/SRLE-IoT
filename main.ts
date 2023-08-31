@@ -728,8 +728,6 @@ namespace SRLE {
         for (let i = 0; i < len; i++) {
             RECDATA += String.fromCharCode(tempRecbuf[i])
         }
-        basic.showNumber(len)
-        basic.pause(3000)
     }
 
     function SRLE_InquireStatus(): void {
