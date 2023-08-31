@@ -733,7 +733,7 @@ namespace SRLE {
             response_data = RECDATA;
         }
 
-        serial.writeLine(RECDATA);
+        serial.writeString(RECDATA);
     }
 
     function SRLE_InquireStatus(): void {
