@@ -514,7 +514,7 @@ namespace SRLE {
             if (SRLEStatus == "HTTP_REQUEST") {
                 basic.showIcon(IconNames.Heart)
                 SRLEStatus = "";
-                return RECDATA
+                return '1' + RECDATA
             } else if (SRLEStatus == "HTTP_REQUESTFailed") {
                 SRLEStatus = "";
                 return "requestFailed"
