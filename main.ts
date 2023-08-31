@@ -834,7 +834,9 @@ namespace SRLE {
                 break;
             case HTTP_REQUEST:
                 SRLEStatus = "HTTP_REQUEST"
-                SRLE_GetData(tempStatus)
+                if (RECDATA == "") {
+                    SRLE_GetData(tempStatus)
+                }
                 break;
             case READ_VERSION:
                 SRLEStatus = "READ_VERSION"
