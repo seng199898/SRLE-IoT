@@ -512,6 +512,7 @@ namespace SRLE {
         while (true) {
             basic.pause(100)
             if (SRLEStatus == "HTTP_REQUEST") {
+                basic.showIcon(IconNames.Heart)
                 SRLEStatus = "";
                 return RECDATA
             } else if (SRLEStatus == "HTTP_REQUESTFailed") {
@@ -524,6 +525,7 @@ namespace SRLE {
             }
         }
     }
+
     /**
      * ThingSpeak configuration
      * @param KEY to KEY ,eg: "your Key"
