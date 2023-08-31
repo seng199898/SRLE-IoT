@@ -731,9 +731,9 @@ namespace SRLE {
 
         if (SRLEStatus == 'HTTP_REQUEST') {
             response_data = RECDATA;
+            basic.showString('1' + RECDATA)
+            basic.pause(1000)
         }
-
-        serial.writeString(RECDATA);
     }
 
     function SRLE_InquireStatus(): void {
