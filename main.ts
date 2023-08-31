@@ -496,6 +496,13 @@ namespace SRLE {
         SRLE_WEBHOOKS_EVENT = EVENT
         SRLE_WEBHOOKS_KEY = KEY
     }
+
+    /**
+     * Get http response
+    */
+    //% weight=78
+    //% blockId=get_http_response
+    //% block="Get HTTP response | timeout(ms) %time"
     function SRLE_http_wait_request(time: number): string {
         if (time < 100) {
             time = 100
