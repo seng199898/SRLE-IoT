@@ -605,7 +605,8 @@ namespace SRLE {
         let tempStr = ""
         //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
         //tempStr = `${url}/?data=${data},{}\r`
-        tempStr = url + ",{\"data\":\"123\"}\r"
+        //tempStr = url + ",{\"data\":\"123\"}\r"
+        tempStr = "srleng.com/apps/microbit/index.php,{\"data\":\"123\"}\r"
         SRLE_ParaRunCommand(POST_URL, tempStr)
     }
     // /**Beebotte Configure 
