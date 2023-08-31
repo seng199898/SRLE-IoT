@@ -524,7 +524,6 @@ namespace SRLE {
             }
         }
     }
-
     /**
      * ThingSpeak configuration
      * @param KEY to KEY ,eg: "your Key"
