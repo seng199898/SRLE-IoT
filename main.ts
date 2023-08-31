@@ -728,6 +728,7 @@ namespace SRLE {
         for (let i = 0; i < len; i++) {
             RECDATA += String.fromCharCode(tempRecbuf[i])
         }
+        basic.showIcon(IconNames.Heart)
     }
 
     function SRLE_InquireStatus(): void {
@@ -835,7 +836,6 @@ namespace SRLE {
                 break;
             case HTTP_REQUEST:
                 SRLEStatus = "HTTP_REQUEST"
-                basic.showIcon(IconNames.Heart)
                 SRLE_GetData(tempStatus)
                 break;
             case READ_VERSION:
