@@ -512,9 +512,8 @@ namespace SRLE {
         while (true) {
             basic.pause(100)
             if (SRLEStatus == "HTTP_REQUEST") {
-                basic.showIcon(IconNames.Heart)
                 SRLEStatus = "";
-                return '1' + RECDATA
+                return RECDATA
             } else if (SRLEStatus == "HTTP_REQUESTFailed") {
                 SRLEStatus = "";
                 return "requestFailed"
@@ -836,6 +835,7 @@ namespace SRLE {
                 break;
             case HTTP_REQUEST:
                 SRLEStatus = "HTTP_REQUEST"
+                basic.showIcon(IconNames.Heart)
                 SRLE_GetData(tempStatus)
                 break;
             case READ_VERSION:
