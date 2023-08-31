@@ -578,6 +578,22 @@ namespace SRLE {
             tempStr += "&field8=" + field8
         SRLE_ParaRunCommand(GET_URL, tempStr);
     }
+    
+    /**
+     * IFTTT send data
+     * time(ms): private long maxWait
+     * @param time set timeout, eg: 10000
+    */
+    //% weight=78
+    //% blockId=SRLE_http_post
+    //% block="IFTTT(post) | value1 %value1| value2 %value2| value3 %value3| timeout(ms) %time"
+    export function SRLE_http_post(value1: string, value2: string, value3: string, time: number): void {
+        SRLE_setPara(SETHTTP_IP, SRLE_WEBHOOKS_URL)
+        let tempStr = ""
+        tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
+        SRLE_ParaRunCommand(POST_URL, tempStr)
+    }
+
     /**
      * send http request
     */
