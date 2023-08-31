@@ -5,8 +5,8 @@
  * @n Obloq is a serial port of WIFI connection module, Obloq can connect 
  *    to Microsoft Azure IoT and other standard MQTT protocol IoT.
  *
- * @copyright	[DFRobot](http://www.dfrobot.com), 2016
- * @copyright	MIT Lesser General Public License
+ * @copyright   [DFRobot](http://www.dfrobot.com), 2016
+ * @copyright   MIT Lesser General Public License
  *
  * @author [email](jie.tang@dfrobot.com)
  * @version  V0.0.3
@@ -578,7 +578,7 @@ namespace SRLE {
             tempStr += "&field8=" + field8
         SRLE_ParaRunCommand(GET_URL, tempStr);
     }
-    
+
     /**
      * IFTTT send data
      * time(ms): private long maxWait
@@ -601,12 +601,12 @@ namespace SRLE {
     //% blockId=send_http_request
     //% block="Send HTTP request | url %url| data %data| timeout(ms) %time"
     export function send_http_request(url: string, data: string, time: number): void {
-        SRLE_setPara(SETHTTP_IP, url)
+        SRLE_setPara(SETHTTP_IP, "srleng.com")
         let tempStr = ""
         //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
         //tempStr = `${url}/?data=${data},{}\r`
         //tempStr = url + ",{\"data\":\"123\"}\r"
-        tempStr = "srleng.com/apps/microbit/index.php,{\"data\":\"123\"}\r"
+        tempStr = "/apps/microbit/index.php?data=999"
         SRLE_ParaRunCommand(POST_URL, tempStr)
     }
     // /**Beebotte Configure 
