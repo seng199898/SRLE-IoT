@@ -731,7 +731,7 @@ namespace SRLE {
 
         if (SRLEStatus == 'HTTP_REQUEST') {
             response_data = RECDATA;
-            basic.showString('1' + RECDATA)
+            basic.showString(RECDATA)
             basic.pause(1000)
         }
     }
