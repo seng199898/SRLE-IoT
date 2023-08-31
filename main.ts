@@ -501,7 +501,7 @@ namespace SRLE {
      * Get http response
     */
     //% weight=78
-    //% blockId=get_http_response
+    //% blockId=SRLE_http_wait_request
     //% block="Get HTTP response | timeout(ms) %time"
     function SRLE_http_wait_request(time: number): string {
         if (time < 100) {
