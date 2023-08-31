@@ -1,5 +1,5 @@
 /*！
- * @file pxt-microIoT/microIoT.ts
+ * @file pxt-SRLE/SRLE.ts
  * @brief DFRobot's obloq makecode library.
  * @n [Get the module here](http://www.dfrobot.com.cn/goods-1577.html)
  * @n Obloq is a serial port of WIFI connection module, Obloq can connect 
@@ -16,9 +16,9 @@
 const OBLOQ_MQTT_EASY_IOT_SERVER_CHINA = "iot.dfrobot.com.cn"
 const OBLOQ_MQTT_EASY_IOT_SERVER_GLOBAL = "api.beebotte.com"
 const OBLOQ_MQTT_EASY_IOT_SERVER_EN = "iot.dfrobot.com"
-const microIoT_WEBHOOKS_URL = "maker.ifttt.com"
+const SRLE_WEBHOOKS_URL = "maker.ifttt.com"
 const OBLOQ_MQTT_EASY_IOT_SERVER_TK = "api.thingspeak.com"
-const microIoT_Weather_URL = "api.dfrobot.top"
+const SRLE_Weather_URL = "api.dfrobot.top"
 
 enum NeoPixelColors {
     //% block=red
@@ -56,8 +56,8 @@ enum PIN {
 /**
  *Obloq implementation method.
  */
-//% weight=10 color=#008B00 icon="\uf1eb" block="microIoT"
-namespace microIoT {
+//% weight=10 color=#008B00 icon="\uf1eb" block="SRLE"
+namespace SRLE {
     let BrightnessP15 = 255;
     let BrightnessP1 = 255;
     let BrightnessP0 = 255;
@@ -80,10 +80,10 @@ namespace microIoT {
     let Topic4CallBack: Action = null;
     let Wifi_Status = 0x00
 
-    let microIoT_WEBHOOKS_KEY = ""
-    let microIoT_WEBHOOKS_EVENT = ""
-    let microIoT_BEEBOTTE_Token = ""
-    let microIoT_THINGSPEAK_KEY = ""
+    let SRLE_WEBHOOKS_KEY = ""
+    let SRLE_WEBHOOKS_EVENT = ""
+    let SRLE_BEEBOTTE_Token = ""
+    let SRLE_THINGSPEAK_KEY = ""
 
     let READ_STATUS = 0x00
     let SET_PARA = 0x01
@@ -147,7 +147,7 @@ namespace microIoT {
     let SUB_TOPIC_Ceiling = 0x02
 
 
-    let microIoTStatus = ""
+    let SRLEStatus = ""
     let WIFI_NAME = ""
     let WIFI_PASSWORLD = ""
     let MQTT_SERVER = ""
@@ -162,7 +162,7 @@ namespace microIoT {
     let RECDATA = ""
     let HTTP_IP = ""
     let HTTP_PORT = ""
-    let microIoT_IP = "0.0.0.0"
+    let SRLE_IP = "0.0.0.0"
     let G_city = 0;
 
     export enum aMotors {
@@ -207,10 +207,10 @@ namespace microIoT {
      * Configure the micro:IoT servo.
      */
     //% weight=50
-    //% blockId=microIoT_ServoRun block="Servo|%index|angle|%angle"
+    //% blockId=SRLE_ServoRun block="Servo|%index|angle|%angle"
     //% angle.min=0 angle.max=180
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
-    export function microIoT_ServoRun(index: aServos, angle: number): void {
+    export function SRLE_ServoRun(index: aServos, angle: number): void {
         let buf = pins.createBuffer(2);
         if (index == 0) {
             buf[0] = 0x14;
@@ -225,11 +225,11 @@ namespace microIoT {
      * Configure the direction and speed of the micro:IoT motor 
      */
     //% weight=49
-    //% blockId=microIoT_MotorRun block="Motor|%index|move|%Dir|at speed|%speed"
+    //% blockId=SRLE_MotorRun block="Motor|%index|move|%Dir|at speed|%speed"
     //% speed.min=0 speed.max=255
     //% index.fieldEditor="gridpicker" index.fieldOptions.columns=2
     //% direction.fieldEditor="gridpicker" direction.fieldOptions.columns=2
-    export function microIoT_MotorRun(index: aMotors, direction: Dir, speed: number): void {
+    export function SRLE_MotorRun(index: aMotors, direction: Dir, speed: number): void {
         let buf = pins.createBuffer(3);
         if (index == 0) {
             buf[0] = 0x00;
@@ -261,9 +261,9 @@ namespace microIoT {
      * Stop the motor
      */
     //% weight=48
-    //% blockId=microIoT_motorStop block="Motor |%motors stop"
+    //% blockId=SRLE_motorStop block="Motor |%motors stop"
     //% motors.fieldEditor="gridpicker" motors.fieldOptions.columns=2 
-    export function microIoT_motorStop(motors: aMotors): void {
+    export function SRLE_motorStop(motors: aMotors): void {
         let buf = pins.createBuffer(3);
         if (motors == 0) {
             buf[0] = 0x00;
@@ -282,7 +282,7 @@ namespace microIoT {
     }
 
 
-    function microIoT_setPara(cmd: number, para: string): void {
+    function SRLE_setPara(cmd: number, para: string): void {
         let buf = pins.createBuffer(para.length + 4);
         buf[0] = 0x1E
         buf[1] = SET_PARA
@@ -293,7 +293,7 @@ namespace microIoT {
         pins.i2cWriteBuffer(IIC_ADDRESS, buf);
     }
 
-    function microIoT_runCommand(cmd: number): void {
+    function SRLE_runCommand(cmd: number): void {
         let buf = pins.createBuffer(3);
         buf[0] = 0x1E
         buf[1] = RUN_COMMAND
@@ -301,7 +301,7 @@ namespace microIoT {
         pins.i2cWriteBuffer(IIC_ADDRESS, buf);
     }
 
-    function microIoT_readStatus(para: number): number {
+    function SRLE_readStatus(para: number): number {
         let buf = pins.createBuffer(3);
         buf[0] = 0x1E
         buf[1] = READ_STATUS
@@ -312,7 +312,7 @@ namespace microIoT {
         return recbuf[1]
     }
 
-    function microIoT_readValue(para: number): string {
+    function SRLE_readValue(para: number): string {
         let buf = pins.createBuffer(3);
         let paraValue = 0x00
         let tempLen = 0x00
@@ -321,11 +321,11 @@ namespace microIoT {
         buf[1] = READ_STATUS
         buf[2] = para
         pins.i2cWriteBuffer(IIC_ADDRESS, buf);
-        microIoT_CheckStatus("READ_IP");
+        SRLE_CheckStatus("READ_IP");
         return RECDATA
     }
 
-    function microIoT_ParaRunCommand(cmd: number, data: string): void {
+    function SRLE_ParaRunCommand(cmd: number, data: string): void {
         let buf = pins.createBuffer(data.length + 4)
         buf[0] = 0x1E
         buf[1] = RUN_COMMAND
@@ -336,12 +336,12 @@ namespace microIoT {
         pins.i2cWriteBuffer(IIC_ADDRESS, buf);
 
     }
-    function microIoT_CheckStatus(cmd: string): void {
+    function SRLE_CheckStatus(cmd: string): void {
         let startTime = input.runningTime();
         let currentTime = 0;
         while (true) {
             currentTime = input.runningTime();
-            if (microIoTStatus == cmd) {
+            if (SRLEStatus == cmd) {
                 serial.writeString("OKOK\r\n");
                 return;
             }
@@ -359,12 +359,12 @@ namespace microIoT {
     * @param PASSWORD to PASSWORD ,eg: "yourPASSWORD"
     */
     //% weight=100
-    //% blockId=microIoT_wifi block="Micro:IoT setup |Wi-Fi: |name: %SSID| password：%PASSWORD"
-    export function microIoT_WIFI(SSID: string, PASSWORD: string): void {
-        microIoT_setPara(SETWIFI_NAME, SSID)
-        microIoT_setPara(SETWIFI_PASSWORLD, PASSWORD)
-        microIoT_runCommand(CONNECT_WIFI)
-        microIoT_CheckStatus("WiFiConnected");
+    //% blockId=SRLE_wifi block="Micro:IoT setup |Wi-Fi: |name: %SSID| password：%PASSWORD"
+    export function SRLE_WIFI(SSID: string, PASSWORD: string): void {
+        SRLE_setPara(SETWIFI_NAME, SSID)
+        SRLE_setPara(SETWIFI_PASSWORLD, PASSWORD)
+        SRLE_runCommand(CONNECT_WIFI)
+        SRLE_CheckStatus("WiFiConnected");
         Wifi_Status = WIFI_CONNECTED
     }
     /**
@@ -377,27 +377,27 @@ namespace microIoT {
     */
     //% weight=100
     //% blockExternalInputs=1
-    //% blockId=microIoT_MQTT block="Micro:IoT setup mqtt|IOT_ID(user): %IOT_ID| IOT_PWD(password) :%IOT_PWD|(default topic_0) Topic: %IOT_TOPIC| server: %SERVERS"
-    export function microIoT_MQTT(/*SSID: string, PASSWORD: string,*/
+    //% blockId=SRLE_MQTT block="Micro:IoT setup mqtt|IOT_ID(user): %IOT_ID| IOT_PWD(password) :%IOT_PWD|(default topic_0) Topic: %IOT_TOPIC| server: %SERVERS"
+    export function SRLE_MQTT(/*SSID: string, PASSWORD: string,*/
         IOT_ID: string, IOT_PWD: string,
         IOT_TOPIC: string, servers: SERVERS):
         void {
         if (servers == SERVERS.China) {
-            microIoT_setPara(SETMQTT_SERVER, OBLOQ_MQTT_EASY_IOT_SERVER_CHINA)
+            SRLE_setPara(SETMQTT_SERVER, OBLOQ_MQTT_EASY_IOT_SERVER_CHINA)
         } else if (servers == SERVERS.English) {
-            microIoT_setPara(SETMQTT_SERVER, OBLOQ_MQTT_EASY_IOT_SERVER_EN)
-        } //else { microIoT_setPara(SETMQTT_SERVER, OBLOQ_MQTT_EASY_IOT_SERVER_GLOBAL) }
-        microIoT_setPara(SETMQTT_PORT, "1883")
-        microIoT_setPara(SETMQTT_ID, IOT_ID)
-        microIoT_setPara(SETMQTT_PASSWORLD, IOT_PWD)
+            SRLE_setPara(SETMQTT_SERVER, OBLOQ_MQTT_EASY_IOT_SERVER_EN)
+        } //else { SRLE_setPara(SETMQTT_SERVER, OBLOQ_MQTT_EASY_IOT_SERVER_GLOBAL) }
+        SRLE_setPara(SETMQTT_PORT, "1883")
+        SRLE_setPara(SETMQTT_ID, IOT_ID)
+        SRLE_setPara(SETMQTT_PASSWORLD, IOT_PWD)
         serial.writeString("wifi conneced ok\r\n");
-        microIoT_runCommand(CONNECT_MQTT);
-        microIoT_CheckStatus("MQTTConnected");
+        SRLE_runCommand(CONNECT_MQTT);
+        SRLE_CheckStatus("MQTTConnected");
         serial.writeString("mqtt connected\r\n");
         basic.pause(100)
         Topic_0 = IOT_TOPIC
-        microIoT_ParaRunCommand(SUB_TOPIC0, IOT_TOPIC);
-        microIoT_CheckStatus("SubTopicOK");
+        SRLE_ParaRunCommand(SUB_TOPIC0, IOT_TOPIC);
+        SRLE_CheckStatus("SubTopicOK");
         serial.writeString("sub topic ok\r\n");
 
     }
@@ -405,13 +405,13 @@ namespace microIoT {
      * Add an MQTT subscription
      */
     //% weight=200
-    //% blockId=microIoT_add_topic
+    //% blockId=SRLE_add_topic
     //% block="subscribe additional %top |: %IOT_TOPIC"
     //% top.fieldEditor="gridpicker" top.fieldOptions.columns=2
     //% advanced=true
-    export function microIoT_add_topic(top: TOPIC, IOT_TOPIC: string): void {
-        microIoT_ParaRunCommand((top + 0x06), IOT_TOPIC);
-        microIoT_CheckStatus("SubTopicOK");
+    export function SRLE_add_topic(top: TOPIC, IOT_TOPIC: string): void {
+        SRLE_ParaRunCommand((top + 0x06), IOT_TOPIC);
+        SRLE_CheckStatus("SubTopicOK");
 
     }
     /**
@@ -419,8 +419,8 @@ namespace microIoT {
      * @param Mess to Mess ,eg: "mess"
      */
     //% weight=99
-    //% blockId=microIoT_SendMessage block="MQTT Send Message %string| to |%TOPIC"
-    export function microIoT_SendMessage(Mess: string, Topic: TOPIC): void {
+    //% blockId=SRLE_SendMessage block="MQTT Send Message %string| to |%TOPIC"
+    export function SRLE_SendMessage(Mess: string, Topic: TOPIC): void {
         let topic = 0
 
         switch (Topic) {
@@ -443,11 +443,11 @@ namespace microIoT {
                 break;
 
         }
-        microIoT_ParaRunCommand(topic, Mess)
+        SRLE_ParaRunCommand(topic, Mess)
 
     }
 
-    function microIoT_callback(top: TOPIC, a: Action): void {
+    function SRLE_callback(top: TOPIC, a: Action): void {
         switch (top) {
             case TOPIC.topic_0:
                 Topic0CallBack = a;
@@ -475,8 +475,8 @@ namespace microIoT {
     //% blockGap=60
     //% blockId=obloq_mqtt_callback_user_more block="MQTT on %top |received"
     //% top.fieldEditor="gridpicker" top.fieldOptions.columns=2
-    export function microIoT_MQTT_Event(top: TOPIC, cb: (message: string) => void) {
-        microIoT_callback(top, () => {
+    export function SRLE_MQTT_Event(top: TOPIC, cb: (message: string) => void) {
+        SRLE_callback(top, () => {
             const packet = new PacketMqtt()
             packet.message = RECDATA
             cb(packet.message)
@@ -490,13 +490,13 @@ namespace microIoT {
     //% weight=80
     //% receive.fieldEditor="gridpicker" receive.fieldOptions.columns=3
     //% send.fieldEditor="gridpicker" send.fieldOptions.columns=3
-    //% blockId=microIoT_http_IFTTT
+    //% blockId=SRLE_http_IFTTT
     //% block="Webhooks config:|event: %EVENT|key: %KEY|"
-    export function microIoT_http_IFTTT(EVENT: string, KEY: string): void {
-        microIoT_WEBHOOKS_EVENT = EVENT
-        microIoT_WEBHOOKS_KEY = KEY
+    export function SRLE_http_IFTTT(EVENT: string, KEY: string): void {
+        SRLE_WEBHOOKS_EVENT = EVENT
+        SRLE_WEBHOOKS_KEY = KEY
     }
-    function microIoT_http_wait_request(time: number): string {
+    function SRLE_http_wait_request(time: number): string {
         if (time < 100) {
             time = 100
         }
@@ -504,11 +504,11 @@ namespace microIoT {
         let _timeout = 0
         while (true) {
             basic.pause(100)
-            if (microIoTStatus == "HTTP_REQUEST") {
-                microIoTStatus = "";
+            if (SRLEStatus == "HTTP_REQUEST") {
+                SRLEStatus = "";
                 return RECDATA
-            } else if (microIoTStatus == "HTTP_REQUESTFailed") {
-                microIoTStatus = "";
+            } else if (SRLEStatus == "HTTP_REQUESTFailed") {
+                SRLEStatus = "";
                 return "requestFailed"
             }
             _timeout += 1
@@ -528,7 +528,7 @@ namespace microIoT {
     //% blockId=WiFi_IoT_I2C_ThingSpeak_configura
     //% block="ThingSpeak configure key: %KEY"
     export function ThingSpeakConfigure(KEY: string): void {
-        microIoT_THINGSPEAK_KEY = KEY
+        SRLE_THINGSPEAK_KEY = KEY
     }
 
     /**
@@ -542,9 +542,9 @@ namespace microIoT {
     //% inlineInputMode=inline
     //% block="ThingSpeak send Field1: %field1||Field2: %field2|Field3: %field3|Field4: %field4|Field5: %field5|Field6: %field6|Field7: %field7 Field8: %field8" 
     export function ThingSpeakSend(field1: string, field2?: string, field3?: string, field4?: string, field5?: string, field6?: string, field7?: string, field8?: string): void {
-        microIoT_setPara(SETHTTP_IP, OBLOQ_MQTT_EASY_IOT_SERVER_TK)
+        SRLE_setPara(SETHTTP_IP, OBLOQ_MQTT_EASY_IOT_SERVER_TK)
         let tempStr = ""
-        tempStr = "update?api_key=" + microIoT_THINGSPEAK_KEY + "&field1=" + field1
+        tempStr = "update?api_key=" + SRLE_THINGSPEAK_KEY + "&field1=" + field1
         // if(field2 != undefined){
         //     tempStr += "&field2=" + field2
         // }else if(field3 != undefined){
@@ -576,7 +576,7 @@ namespace microIoT {
             tempStr += "&field7=" + field7
         if (field8 != undefined)
             tempStr += "&field8=" + field8
-        microIoT_ParaRunCommand(GET_URL, tempStr);
+        SRLE_ParaRunCommand(GET_URL, tempStr);
     }
     /**
      * IFTTT send data
@@ -584,13 +584,13 @@ namespace microIoT {
      * @param time set timeout, eg: 10000
     */
     //% weight=78
-    //% blockId=microIoT_http_post
+    //% blockId=SRLE_http_post
     //% block="IFTTT(post) | value1 %value1| value2 %value2| value3 %value3| timeout(ms) %time"
-    export function microIoT_http_post(value1: string, value2: string, value3: string, time: number): void {
-        microIoT_setPara(SETHTTP_IP, microIoT_WEBHOOKS_URL)
+    export function SRLE_http_post(value1: string, value2: string, value3: string, time: number): void {
+        SRLE_setPara(SETHTTP_IP, SRLE_WEBHOOKS_URL)
         let tempStr = ""
-        tempStr = "trigger/" + microIoT_WEBHOOKS_EVENT + "/with/key/" + microIoT_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
-        microIoT_ParaRunCommand(POST_URL, tempStr)
+        tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
+        SRLE_ParaRunCommand(POST_URL, tempStr)
     }
     // /**Beebotte Configure 
     //  * @param token ,eg: "Your Channel Token"
@@ -598,7 +598,7 @@ namespace microIoT {
     // //%weight=30
     // //%blockID=WiFi_IoT_I2C_BeeBotte_Configura block="BeeBotte configura key: %token "
     // export function token(token:string):void{
-    //     microIoT_BEEBOTTE_Token = token;
+    //     SRLE_BEEBOTTE_Token = token;
     // }
     // /**BeeBotte send data
     //  * @param channel ,eg: "Your Channel Name"
@@ -608,10 +608,10 @@ namespace microIoT {
     //  //%weight=29
     // //%blockID=WiFi_IoT_I2C_BeeBotte_sendmessage block="BeeBotte Channel: %channel Resource: %resource send value %data "
     // export function sendmessage(channel:string, resource:string, data:string){
-    //     microIoT_setPara(SETHTTP_IP, OBLOQ_MQTT_EASY_IOT_SERVER_GLOBAL)
+    //     SRLE_setPara(SETHTTP_IP, OBLOQ_MQTT_EASY_IOT_SERVER_GLOBAL)
     //     let tempStr = ""
-    //     tempStr = "v1/data/write/" + channel + "/" + resource + "?token=" + microIoT_BEEBOTTE_Token +",{\"data\":" + data + "}\r\n";
-    //     microIoT_ParaRunCommand(POST_URL, tempStr);
+    //     tempStr = "v1/data/write/" + channel + "/" + resource + "?token=" + SRLE_BEEBOTTE_Token +",{\"data\":" + data + "}\r\n";
+    //     SRLE_ParaRunCommand(POST_URL, tempStr);
     // }
 
 
@@ -620,12 +620,12 @@ namespace microIoT {
     */
 
     //% weight=51
-    //% blockId=microIoT_wifi_ipconfig
+    //% blockId=SRLE_wifi_ipconfig
     //% block="ipconfig"
     //% advanced=true
-    export function microIoT_wifi_ipconfig(): string {
-        return microIoT_IP;
-        //microIoT_readValue(READ_IP)
+    export function SRLE_wifi_ipconfig(): string {
+        return SRLE_IP;
+        //SRLE_readValue(READ_IP)
     }
 
 
@@ -638,13 +638,13 @@ namespace microIoT {
     //% blockId=Obloq_send_ping
     //% block="sendPing"
     //% advanced=true
-    export function microIoT_send_ping(): boolean {
+    export function SRLE_send_ping(): boolean {
         let buf = pins.createBuffer(3);
         buf[0] = 0x1E;
         buf[1] = RUN_COMMAND;
         buf[2] = SEND_PING;
         pins.i2cWriteBuffer(IIC_ADDRESS, buf);
-        microIoT_CheckStatus("PingOK");
+        SRLE_CheckStatus("PingOK");
         return true;
     }
 
@@ -655,16 +655,16 @@ namespace microIoT {
     */
 
     //% weight=50
-    //% blockId=microIoT_get_version
+    //% blockId=SRLE_get_version
     //% block="get version"
     //% advanced=true
-    export function microIoT_get_version(): string {
+    export function SRLE_get_version(): string {
         let buf = pins.createBuffer(3);
         buf[0] = 0x1E;
         buf[1] = RUN_COMMAND;
         buf[2] = GET_VERSION;
         pins.i2cWriteBuffer(IIC_ADDRESS, buf);
-        //microIoT_CheckStatus("READ_VERSION");
+        //SRLE_CheckStatus("READ_VERSION");
         return RECDATA
     }
 
@@ -674,10 +674,10 @@ namespace microIoT {
      * @param time to timeout, eg: 10000
     */
     //% weight=48
-    //% blockId=microIoT_get_heartbeat
+    //% blockId=SRLE_get_heartbeat
     //% block="get heartbeat"
     //% advanced=true
-    export function microIoT_get_heartbeat(): boolean {
+    export function SRLE_get_heartbeat(): boolean {
         return true
     }
 
@@ -685,14 +685,14 @@ namespace microIoT {
      * Stop the heartbeat request.
     */
     //% weight=47
-    //% blockId=microIoT_stop_heartbeat
+    //% blockId=SRLE_stop_heartbeat
     //% block="stop heartbeat"
     //% advanced=true
-    export function microIoT_stop_heartbeat(): boolean {
+    export function SRLE_stop_heartbeat(): boolean {
         return true
     }
 
-    function microIoT_GetData(len: number): void {
+    function SRLE_GetData(len: number): void {
         RECDATA = ""
         let tempbuf = pins.createBuffer(1)
         tempbuf[0] = 0x22
@@ -704,7 +704,7 @@ namespace microIoT {
         }
     }
 
-    function microIoT_InquireStatus(): void {
+    function SRLE_InquireStatus(): void {
 
         let buf = pins.createBuffer(3)
         let tempId = 0
@@ -720,100 +720,100 @@ namespace microIoT {
         switch (tempId) {
             case READ_PING:
                 if (tempStatus == PING_OK) {
-                    microIoTStatus = "PingOK"
+                    SRLEStatus = "PingOK"
                 } else {
-                    microIoTStatus = "PingERR"
+                    SRLEStatus = "PingERR"
                 }
                 break;
             case READ_WIFISTATUS:
                 if (tempStatus == WIFI_CONNECTING) {
-                    microIoTStatus = "WiFiConnecting"
+                    SRLEStatus = "WiFiConnecting"
                 } else if (tempStatus == WIFI_CONNECTED) {
-                    microIoTStatus = "WiFiConnected"
+                    SRLEStatus = "WiFiConnected"
                 } else if (tempStatus == WIFI_DISCONNECT) {
-                    microIoTStatus = "WiFiDisconnect"
+                    SRLEStatus = "WiFiDisconnect"
                     wifiConnected++;
                     if (wifiConnected == 2) {
                         wifiConnected = 0;
-                        microIoT_runCommand(WIFI_CONNECTED);
+                        SRLE_runCommand(WIFI_CONNECTED);
                     }
                 } else {
                 } break;
             case READ_MQTTSTATUS:
                 if (tempStatus == MQTT_CONNECTED) {
-                    microIoTStatus = "MQTTConnected"
+                    SRLEStatus = "MQTTConnected"
                     mqttState = 1;
                 } else if (tempStatus == MQTT_CONNECTERR) {
-                    microIoTStatus = "MQTTConnectERR"
+                    SRLEStatus = "MQTTConnectERR"
 
                 } else if (tempStatus == 0) {//新版本修复重连
-                    microIoT_runCommand(DISCONNECT_MQTT);
-                    microIoT_runCommand(WIFI_CONNECTED);
+                    SRLE_runCommand(DISCONNECT_MQTT);
+                    SRLE_runCommand(WIFI_CONNECTED);
                 }
                 break;
             case READ_SUBSTATUS:
                 if (tempStatus == SUB_TOPIC_OK) {
-                    microIoTStatus = "SubTopicOK"
+                    SRLEStatus = "SubTopicOK"
                 } else if (tempStatus == SUB_TOPIC_Ceiling) {
-                    microIoTStatus = "SubTopicCeiling"
+                    SRLEStatus = "SubTopicCeiling"
                 } else {
-                    microIoTStatus = "SubTopicERR"
+                    SRLEStatus = "SubTopicERR"
                 }
                 break;
             case READ_IP:
-                microIoTStatus = "READ_IP"
-                microIoT_GetData(tempStatus)
-                microIoT_IP = RECDATA
+                SRLEStatus = "READ_IP"
+                SRLE_GetData(tempStatus)
+                SRLE_IP = RECDATA
                 if (mqttState == 1) {
                     mqttState = 0;
-                    microIoT_runCommand(DISCONNECT_MQTT);
+                    SRLE_runCommand(DISCONNECT_MQTT);
                     basic.pause(200)
-                    microIoT_runCommand(CONNECT_MQTT);
-                    //microIoT_CheckStatus("MQTTConnected");
+                    SRLE_runCommand(CONNECT_MQTT);
+                    //SRLE_CheckStatus("MQTTConnected");
                 }
                 break;
             case SUB_TOPIC0:
-                microIoTStatus = "READ_TOPICDATA"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "READ_TOPICDATA"
+                SRLE_GetData(tempStatus)
                 if (Topic0CallBack != null) {
                     Topic0CallBack();
                 }
                 break;
             case SUB_TOPIC1:
-                microIoTStatus = "READ_TOPICDATA"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "READ_TOPICDATA"
+                SRLE_GetData(tempStatus)
                 if (Topic1CallBack != null) {
                     Topic1CallBack();
                 }
                 break;
             case SUB_TOPIC2:
-                microIoTStatus = "READ_TOPICDATA"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "READ_TOPICDATA"
+                SRLE_GetData(tempStatus)
                 if (Topic2CallBack != null) {
                     Topic2CallBack();
                 }
                 break;
             case SUB_TOPIC3:
-                microIoTStatus = "READ_TOPICDATA"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "READ_TOPICDATA"
+                SRLE_GetData(tempStatus)
                 if (Topic3CallBack != null) {
                     Topic3CallBack();
                 }
                 break;
             case SUB_TOPIC4:
-                microIoTStatus = "READ_TOPICDATA"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "READ_TOPICDATA"
+                SRLE_GetData(tempStatus)
                 if (Topic4CallBack != null) {
                     Topic4CallBack();
                 }
                 break;
             case HTTP_REQUEST:
-                microIoTStatus = "HTTP_REQUEST"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "HTTP_REQUEST"
+                SRLE_GetData(tempStatus)
                 break;
             case READ_VERSION:
-                microIoTStatus = "READ_VERSION"
-                microIoT_GetData(tempStatus)
+                SRLEStatus = "READ_VERSION"
+                SRLE_GetData(tempStatus)
                 break;
             default:
                 break;
@@ -821,7 +821,7 @@ namespace microIoT {
         basic.pause(50);
     }
     basic.forever(function () {
-        microIoT_InquireStatus();
+        SRLE_InquireStatus();
     })
 
 
@@ -832,33 +832,33 @@ namespace microIoT {
 
     //% weight=200
     //% block="init device"
-    export function microIoT_initDisplay(): void {
+    export function SRLE_initDisplay(): void {
 
-        microIoT_cmd(0xAE);  // Set display OFF
-        microIoT_cmd(0xD5);  // Set Display Clock Divide Ratio / OSC Frequency 0xD4
-        microIoT_cmd(0x80);  // Display Clock Divide Ratio / OSC Frequency 
-        microIoT_cmd(0xA8);  // Set Multiplex Ratio
-        microIoT_cmd(0x3F);  // Multiplex Ratio for 128x64 (64-1)
-        microIoT_cmd(0xD3);  // Set Display Offset
-        microIoT_cmd(0x00);  // Display Offset
-        microIoT_cmd(0x40);  // Set Display Start Line
-        microIoT_cmd(0x8D);  // Set Charge Pump
-        microIoT_cmd(0x14);  // Charge Pump (0x10 External, 0x14 Internal DC/DC)
-        microIoT_cmd(0xA1);  // Set Segment Re-Map
-        microIoT_cmd(0xC8);  // Set Com Output Scan Direction
-        microIoT_cmd(0xDA);  // Set COM Hardware Configuration
-        microIoT_cmd(0x12);  // COM Hardware Configuration
-        microIoT_cmd(0x81);  // Set Contrast
-        microIoT_cmd(0xCF);  // Contrast
-        microIoT_cmd(0xD9);  // Set Pre-Charge Period
-        microIoT_cmd(0xF1);  // Set Pre-Charge Period (0x22 External, 0xF1 Internal)
-        microIoT_cmd(0xDB);  // Set VCOMH Deselect Level
-        microIoT_cmd(0x40);  // VCOMH Deselect Level
-        microIoT_cmd(0xA4);  // Set all pixels OFF
-        microIoT_cmd(0xA6);  // Set display not inverted
-        microIoT_cmd(0xAF);  // Set display On
-        microIoT_clear();
-        let Version = microIoT.microIoT_get_version();
+        SRLE_cmd(0xAE);  // Set display OFF
+        SRLE_cmd(0xD5);  // Set Display Clock Divide Ratio / OSC Frequency 0xD4
+        SRLE_cmd(0x80);  // Display Clock Divide Ratio / OSC Frequency 
+        SRLE_cmd(0xA8);  // Set Multiplex Ratio
+        SRLE_cmd(0x3F);  // Multiplex Ratio for 128x64 (64-1)
+        SRLE_cmd(0xD3);  // Set Display Offset
+        SRLE_cmd(0x00);  // Display Offset
+        SRLE_cmd(0x40);  // Set Display Start Line
+        SRLE_cmd(0x8D);  // Set Charge Pump
+        SRLE_cmd(0x14);  // Charge Pump (0x10 External, 0x14 Internal DC/DC)
+        SRLE_cmd(0xA1);  // Set Segment Re-Map
+        SRLE_cmd(0xC8);  // Set Com Output Scan Direction
+        SRLE_cmd(0xDA);  // Set COM Hardware Configuration
+        SRLE_cmd(0x12);  // COM Hardware Configuration
+        SRLE_cmd(0x81);  // Set Contrast
+        SRLE_cmd(0xCF);  // Contrast
+        SRLE_cmd(0xD9);  // Set Pre-Charge Period
+        SRLE_cmd(0xF1);  // Set Pre-Charge Period (0x22 External, 0xF1 Internal)
+        SRLE_cmd(0xDB);  // Set VCOMH Deselect Level
+        SRLE_cmd(0x40);  // VCOMH Deselect Level
+        SRLE_cmd(0xA4);  // Set all pixels OFF
+        SRLE_cmd(0xA6);  // Set display not inverted
+        SRLE_cmd(0xAF);  // Set display On
+        SRLE_clear();
+        let Version = SRLE.SRLE_get_version();
         if (Version == "V4.1") {
             versionState = 1
             let buf = pins.createBuffer(3);
@@ -874,20 +874,20 @@ namespace microIoT {
      */
     //% weight=60
     //% block="clear OLED"
-    export function microIoT_clear() {
+    export function SRLE_clear() {
         for (let j = 0; j < 8; j++) {
-            microIoT_setText(j, 0);
+            SRLE_setText(j, 0);
             {
                 for (let i = 0; i < 16; i++)  //clear all columns
                 {
-                    microIoT_putChar(' ');
+                    SRLE_putChar(' ');
                 }
             }
         }
-        microIoT_setText(0, 0);
+        SRLE_setText(0, 0);
     }
 
-    function microIoT_setText(row: number, column: number) {
+    function SRLE_setText(row: number, column: number) {
         let r = row;
         let c = column;
         if (row < 0) { r = 0 }
@@ -895,14 +895,14 @@ namespace microIoT {
         if (row > 7) { r = 7 }
         if (column > 15) { c = 15 }
 
-        microIoT_cmd(0xB0 + r);            //set page address
-        microIoT_cmd(0x00 + (8 * c & 0x0F));  //set column lower address
-        microIoT_cmd(0x10 + ((8 * c >> 4) & 0x0F));   //set column higher address
+        SRLE_cmd(0xB0 + r);            //set page address
+        SRLE_cmd(0x00 + (8 * c & 0x0F));  //set column lower address
+        SRLE_cmd(0x10 + ((8 * c >> 4) & 0x0F));   //set column higher address
     }
 
-    function microIoT_putChar(c: string) {
+    function SRLE_putChar(c: string) {
         let c1 = c.charCodeAt(0);
-        microIoT_writeCustomChar(basicFont[c1 - 32]);
+        SRLE_writeCustomChar(basicFont[c1 - 32]);
     }
     /**
      * @param line line num (8 pixels per line), eg: 0
@@ -913,15 +913,15 @@ namespace microIoT {
     //% text.defl="DFRobot"
     //% line.min=0 line.max=7
     //% block="OLED show text %text|on line %line"
-    export function microIoT_showUserText(line: number, text: string): void {
-        microIoT_setText(line, 0);
+    export function SRLE_showUserText(line: number, text: string): void {
+        SRLE_setText(line, 0);
         for (let c of text) {
-            microIoT_putChar(c);
+            SRLE_putChar(c);
         }
 
         for (let i = text.length; i < 16; i++) {
-            microIoT_setText(line, i);
-            microIoT_putChar(" ");
+            SRLE_setText(line, i);
+            SRLE_putChar(" ");
         }
 
     }
@@ -934,24 +934,24 @@ namespace microIoT {
     //% line.min=0 line.max=7
     //% block="OLED show number %n|on line %line"
 
-    export function microIoT_showUserNumber(line: number, n: number): void {
-        microIoT.microIoT_showUserText(line, "" + n)
+    export function SRLE_showUserNumber(line: number, n: number): void {
+        SRLE.SRLE_showUserText(line, "" + n)
     }
 
 
-    function microIoT_writeCustomChar(c: string) {
+    function SRLE_writeCustomChar(c: string) {
         for (let i = 0; i < 8; i++) {
-            microIoT_writeData(c.charCodeAt(i));
+            SRLE_writeData(c.charCodeAt(i));
         }
     }
 
 
-    function microIoT_cmd(c: number) {
+    function SRLE_cmd(c: number) {
         pins.i2cWriteNumber(0x3C, c, NumberFormat.UInt16BE);
     }
 
 
-    function microIoT_writeData(n: number) {
+    function SRLE_writeData(n: number) {
         let b = n;
         if (n < 0) { n = 0 }
         if (n > 255) { n = 255 }
@@ -1070,7 +1070,7 @@ namespace microIoT {
     //% g.min=0 g.max=255
     //% b.min=0 b.max=255
     //%  block="red %r green %g blue %b"
-    export function microIoT_rgb(r: number, g: number, b: number): number {
+    export function SRLE_rgb(r: number, g: number, b: number): number {
         return (r << 16) + (g << 8) + (b);
     }
 
@@ -1081,7 +1081,7 @@ namespace microIoT {
     //% weight=60
     //% len.min=0 len.max=40
     //%  block="pin %pin %len RGB LEDs"
-    export function microIoT_length(pin: PIN, len: number): void {
+    export function SRLE_length(pin: PIN, len: number): void {
         switch (pin) {
             case PIN.P0:
                 LenP0 = len
@@ -1118,7 +1118,7 @@ namespace microIoT {
     //% stop.min=0 stop.max=40
     //% rgb.shadow="colorNumberPicker"
     //%  block="pin %pin RGB %start to %stop show color %rgb"
-    export function microIoT_setIndexColor(pin: PIN, start: number, stop: number, rgb: number) {
+    export function SRLE_setIndexColor(pin: PIN, start: number, stop: number, rgb: number) {
         let bufLength = 40 * 3;
         let neopixel_buf = pins.createBuffer(bufLength);
         for (let i = 0; i < bufLength; i++) {
@@ -1176,7 +1176,7 @@ namespace microIoT {
     //% weight=60
     //% brightness.min=0 brightness.max=255
     //% block="pin %pin LED brightness %brightness"
-    export function microIoT_setBrightness(pin: PIN, brightness: number) {
+    export function SRLE_setBrightness(pin: PIN, brightness: number) {
         switch (pin) {
             case PIN.P0:
                 BrightnessP0 = brightness;
@@ -1206,7 +1206,7 @@ namespace microIoT {
      */
     //% weight=60
     //%  block="pin %pin clear all LEDs"
-    export function microIoT_ledBlank(pin: PIN) {
+    export function SRLE_ledBlank(pin: PIN) {
         let _len;
         switch (pin) {
             case PIN.P0:
@@ -1231,7 +1231,7 @@ namespace microIoT {
                 _len = LenP16
                 break;
         }
-        microIoT_setIndexColor(pin, 0, _len, 0);
+        SRLE_setIndexColor(pin, 0, _len, 0);
     }
 
 }
