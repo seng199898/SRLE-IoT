@@ -604,7 +604,7 @@ namespace SRLE {
         SRLE_setPara(SETHTTP_IP, url)
         let tempStr = ""
         //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
-        tempStr = `${url}/?data=${data}`
+        tempStr = `${url}/?data=${data},{}\r`
         SRLE_ParaRunCommand(POST_URL, tempStr)
     }
     // /**Beebotte Configure 
