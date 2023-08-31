@@ -599,14 +599,15 @@ namespace SRLE {
     */
     //% weight=78
     //% blockId=send_http_request
-    //% block="Send HTTP request | url %url| data %data| timeout(ms) %time"
-    export function send_http_request(url: string, data: string, time: number): void {
-        SRLE_setPara(SETHTTP_IP, "srleng.com")
+    //% block="Send HTTP request | domain %domain| url %url| data %data| timeout(ms) %time"
+    export function send_http_request(domain: string, url: string, data: string, time: number): void {
+        SRLE_setPara(SETHTTP_IP, domain)
         let tempStr = ""
         //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
         //tempStr = `${url}/?data=${data},{}\r`
         //tempStr = url + ",{\"data\":\"123\"}\r"
-        tempStr = "/apps/microbit/index.php?data=999"
+        //tempStr = "/apps/microbit/index.php?data=999"
+        tempStr = `${url}?data=${data}`
         SRLE_ParaRunCommand(POST_URL, tempStr)
     }
     // /**Beebotte Configure 
