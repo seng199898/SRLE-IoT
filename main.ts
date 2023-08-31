@@ -616,7 +616,7 @@ namespace SRLE {
         //tempStr = url + ",{\"data\":\"123\"}\r"
         //tempStr = "/apps/microbit/index.php?data=999"
         tempStr = `${url}?data=${data}`
-        SRLE_ParaRunCommand(POST_URL, tempStr)
+        SRLE_ParaRunCommand(GET_URL, tempStr)
     }
     // /**Beebotte Configure 
     //  * @param token ,eg: "Your Channel Token"
