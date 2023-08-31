@@ -728,7 +728,7 @@ namespace SRLE {
         for (let i = 0; i < len; i++) {
             RECDATA += String.fromCharCode(tempRecbuf[i])
         }
-        basic.showIcon(IconNames.Heart)
+        basic.showNumber(len)
     }
 
     function SRLE_InquireStatus(): void {
