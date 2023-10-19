@@ -375,7 +375,7 @@ namespace SRLE {
     //% weight=99
     //% blockId=send_to_srleng_com
     //% block="Send to SRLE Iot System Platform | API Key: %api_key| Field Name: %field| Value: %value"
-    export function send_to_srleng_com(api_key: string, field: string, value: string, temp: boolean = false): void {
+    export function send_to_srleng_com(api_key: string, field: string, value: number, temp: boolean = false): void {
         SRLE_setPara(SETHTTP_IP, "iot.srleng.com")
         let tempStr = ""
         tempStr = `data/${api_key}?${field}=${value}&iot=srle`
