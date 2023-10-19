@@ -389,7 +389,7 @@ namespace SRLE {
     //% blockGap=60
     //% blockId=send_http_request
     //% block="Send HTTP request | domain %domain| url %url| field %field| value %value"
-    export function send_http_request(domain: string, url: string, field: string, value: string): void {
+    export function send_http_request(domain: string, url: string, field: string, value: number): void {
         SRLE_setPara(SETHTTP_IP, domain)
         let tempStr = ""
         //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
