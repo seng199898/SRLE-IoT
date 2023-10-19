@@ -368,6 +368,37 @@ namespace SRLE {
         SRLE_CheckStatus("WiFiConnected");
         Wifi_Status = WIFI_CONNECTED
     }
+
+    /**
+     * send http request to SRLE server
+    */
+    //% weight=99
+    //% blockId=send_to_srleng_com
+    //% block="Send to SRLE Iot System Platform | API key %key| Field name %field| Value %value"
+    export function send_to_srleng_com(api_key: string, field: string, value: string): void {
+        SRLE_setPara(SETHTTP_IP, "iot.srleng.com")
+        let tempStr = ""
+        tempStr = `data/${api_key}?${field}=${value}&iot=srle`
+        SRLE_ParaRunCommand(GET_URL, tempStr)
+    }
+
+    /**
+     * send http request
+    */
+    //% weight=98
+    //% blockId=send_http_request
+    //% block="Send HTTP request | domain %domain| url %url| field %field| value %value"
+    export function send_http_request(domain: string, url: string, field: string, value: string): void {
+        SRLE_setPara(SETHTTP_IP, domain)
+        let tempStr = ""
+        //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
+        //tempStr = `${url}/?data=${data},{}\r`
+        //tempStr = url + ",{\"data\":\"123\"}\r"
+        //tempStr = "/apps/microbit/index.php?data=999"
+        tempStr = `${url}?${field}=${value}`
+        SRLE_ParaRunCommand(GET_URL, tempStr)
+    }
+
     /**
      * MQTT configuration
      * @param SSID to SSID ,eg: "yourSSID"
@@ -602,22 +633,7 @@ namespace SRLE {
         SRLE_ParaRunCommand(POST_URL, tempStr)
     }
 
-    /**
-     * send http request
-    */
-    //% weight=78
-    //% blockId=send_http_request
-    //% block="Send HTTP request | domain %domain| url %url| field %field| value %value| timeout(ms) %time"
-    export function send_http_request(domain: string, url: string, field: string, value: string, time: number): void {
-        SRLE_setPara(SETHTTP_IP, domain)
-        let tempStr = ""
-        //tempStr = "trigger/" + SRLE_WEBHOOKS_EVENT + "/with/key/" + SRLE_WEBHOOKS_KEY + ",{\"value1\":\"" + value1 + "\",\"value2\":\"" + value2 + "\",\"value3\":\"" + value3 + "\" }" + "\r"
-        //tempStr = `${url}/?data=${data},{}\r`
-        //tempStr = url + ",{\"data\":\"123\"}\r"
-        //tempStr = "/apps/microbit/index.php?data=999"
-        tempStr = `${url}?${field}=${value}`
-        SRLE_ParaRunCommand(GET_URL, tempStr)
-    }
+
     // /**Beebotte Configure 
     //  * @param token ,eg: "Your Channel Token"
     //  */
