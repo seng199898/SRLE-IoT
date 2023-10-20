@@ -426,7 +426,7 @@ namespace SRLE {
     /**
      * send http request to SRLE server
     */
-    //% weight=98
+    //% weight=97
     //% blockId=send_to_srleng_com10
     //% block="Send to SRLE IoT System Platform | API Key: %api_key| Field Name 1: %field1| Value 1: %value1| Field Name 2: %field2| Value 2: %value2| Field Name 3: %field3| Value 3: %value3| Field Name 4: %field4| Value 4: %value4| Field Name 5: %field5| Value 5: %value5| Field Name 6: %field6| Value 6: %value6| Field Name 7: %field7| Value 7: %value7| Field Name 8: %field8| Value 8: %value8| Field Name 9: %field9| Value 9: %value9| Field Name 10: %field10| Value 10: %value10"
     export function send_to_srleng_com10(api_key: string, field1: string, value1: number, field2?: string, value2?: number, field3?: string, value3?: number, field4?: string, value4?: number, field5?: string, value5?: number, field6?: string, value6?: number, field7?: string, value7?: number, field8?: string, value8?: number, field9?: string, value9?: number, field10?: string, value10?: number, temp: boolean = false): void {
@@ -460,7 +460,7 @@ namespace SRLE {
     /**
      * send http request
     */
-    //% weight=97
+    //% weight=96
     //% blockGap=60
     //% blockId=send_http_request
     //% block="Send HTTP request | domain %domain| url %url| field %field| value %value"
@@ -483,7 +483,7 @@ namespace SRLE {
      * @param IOT_PWD to IOT_PWD ,eg: "yourIotPwd"
      * @param IOT_TOPIC to IOT_TOPIC ,eg: "yourIotTopic"
     */
-    //% weight=96
+    //% weight=90
     //% blockExternalInputs=1
     //% blockId=SRLE_MQTT block="Micro:IoT setup mqtt|IOT_ID(user): %IOT_ID| IOT_PWD(password) :%IOT_PWD|(default topic_0) Topic: %IOT_TOPIC| server: %SERVERS"
     export function SRLE_MQTT(/*SSID: string, PASSWORD: string,*/
@@ -526,7 +526,7 @@ namespace SRLE {
      * MQTT sends information to the corresponding subscription
      * @param Mess to Mess ,eg: "mess"
      */
-    //% weight=96
+    //% weight=90
     //% blockId=SRLE_SendMessage block="MQTT Send Message %string| to |%TOPIC"
     export function SRLE_SendMessage(Mess: string, Topic: TOPIC): void {
         let topic = 0
@@ -579,7 +579,7 @@ namespace SRLE {
     /**
      * MQTT processes the subscription when receiving message
      */
-    //% weight=96
+    //% weight=90
     //% blockId=obloq_mqtt_callback_user_more block="MQTT on %top |received"
     //% top.fieldEditor="gridpicker" top.fieldOptions.columns=2
     export function SRLE_MQTT_Event(top: TOPIC, cb: (message: string) => void) {
