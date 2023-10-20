@@ -400,6 +400,30 @@ namespace SRLE {
     }
 
     /**
+     * send http request to SRLE server
+    */
+    //% weight=99
+    //% blockId=send_to_srleng_com5
+    //% block="Send to SRLE IoT System Platform | API Key: %api_key| Field Name 1: %field1| Value 1: %value1| Field Name 2: %field2| Value 2: %value2| Field Name 3: %field3| Value 3: %value3| Field Name 4: %field4| Value 4: %value4| Field Name 5: %field5| Value 5: %value5"
+    export function send_to_srleng_com5(api_key: string, field1: string, value1: number, field2?: string, value2?: number, field3?: string, value3?: number, field4?: string, value4?: number, field5?: string, value5?: number, temp: boolean = false): void {
+        SRLE_setPara(SETHTTP_IP, "iot.srleng.com");
+        let params = `${field1}=${value1}`;
+
+        if (field2 != undefined)
+            params += `&${field2}=${value2}`
+        if (field3 != undefined)
+            params += `&${field3}=${value3}`
+        if (field4 != undefined)
+            params += `&${field4}=${value4}`
+        if (field5 != undefined)
+            params += `&${field5}=${value5}`
+
+        let tempStr = ""
+        tempStr = `data/${api_key}?${params}&iot=srle`
+        SRLE_ParaRunCommand(GET_URL, tempStr)
+    }
+
+    /**
      * send http request
     */
     //% weight=98
