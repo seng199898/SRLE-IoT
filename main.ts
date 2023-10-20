@@ -361,7 +361,7 @@ namespace SRLE {
     * @param PASSWORD to PASSWORD ,eg: "yourPASSWORD"
     */
     //% weight=100
-    //% blockId=SRLE_IoT_WIFI block="Micro:IoT setup |Wi-Fi: |name: %SSID| password：%PASSWORD"
+    //% blockId=SRLE_IoT_WIFI block="Connect to SRLE IoT School WiFi"
     export function SRLE_IoT_WIFI(): void {
         let SSID = "SNET01";
         let PASSWORD = "openday3619";
