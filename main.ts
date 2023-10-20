@@ -354,6 +354,23 @@ namespace SRLE {
 
         }
     }
+
+    /**
+    * WiFi configuration
+    * @param SSID to SSID ,eg: "yourSSID"
+    * @param PASSWORD to PASSWORD ,eg: "yourPASSWORD"
+    */
+    //% weight=100
+    //% blockId=SRLE_IoT_WIFI block="Micro:IoT setup |Wi-Fi: |name: %SSID| password：%PASSWORD"
+    export function SRLE_IoT_WIFI(): void {
+        let SSID = "SNET01";
+        let PASSWORD = "openday3619";
+        SRLE_setPara(SETWIFI_NAME, SSID)
+        SRLE_setPara(SETWIFI_PASSWORLD, PASSWORD)
+        SRLE_runCommand(CONNECT_WIFI)
+        SRLE_CheckStatus("WiFiConnected");
+        Wifi_Status = WIFI_CONNECTED
+    }
     /**
     * WiFi configuration
     * @param SSID to SSID ,eg: "yourSSID"
