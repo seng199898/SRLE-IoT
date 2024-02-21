@@ -393,9 +393,9 @@ namespace SRLE {
     //% blockId=send_to_srleng_com
     //% block="Send to SRLE IoT System Platform | API Key: %api_key| Field Name: %field| Value: %value"
     export function send_to_srleng_com(api_key: string, field: string, value: number, temp: boolean = false): void {
-        SRLE_setPara(SETHTTP_IP, "iot.srleng.com")
+        SRLE_setPara(SETHTTP_IP, "ict.srleng.edu.mo")
         let tempStr = ""
-        tempStr = `data/${api_key}?${field}=${value}&iot=srle`
+        tempStr = `iot/data/${api_key}?${field}=${value}&iot=srle`
         SRLE_ParaRunCommand(GET_URL, tempStr)
     }
 
@@ -406,7 +406,7 @@ namespace SRLE {
     //% blockId=send_to_srleng_com5
     //% block="Send to SRLE IoT System Platform | API Key: %api_key| Field Name 1: %field1| Value 1: %value1| Field Name 2: %field2| Value 2: %value2| Field Name 3: %field3| Value 3: %value3| Field Name 4: %field4| Value 4: %value4| Field Name 5: %field5| Value 5: %value5"
     export function send_to_srleng_com5(api_key: string, field1: string, value1: number, field2?: string, value2?: number, field3?: string, value3?: number, field4?: string, value4?: number, field5?: string, value5?: number, temp: boolean = false): void {
-        SRLE_setPara(SETHTTP_IP, "iot.srleng.com");
+        SRLE_setPara(SETHTTP_IP, "ict.srleng.edu.mo");
         let params = `${field1}=${value1}`;
 
         if (field2 != undefined)
@@ -419,7 +419,7 @@ namespace SRLE {
             params += `&${field5}=${value5}`
 
         let tempStr = ""
-        tempStr = `data/${api_key}?${params}&iot=srle`
+        tempStr = `iot/data/${api_key}?${params}&iot=srle`
         SRLE_ParaRunCommand(GET_URL, tempStr)
     }
 
@@ -430,7 +430,7 @@ namespace SRLE {
     //% blockId=send_to_srleng_com10
     //% block="Send to SRLE IoT System Platform | API Key: %api_key| Field Name 1: %field1| Value 1: %value1| Field Name 2: %field2| Value 2: %value2| Field Name 3: %field3| Value 3: %value3| Field Name 4: %field4| Value 4: %value4| Field Name 5: %field5| Value 5: %value5| Field Name 6: %field6| Value 6: %value6| Field Name 7: %field7| Value 7: %value7| Field Name 8: %field8| Value 8: %value8| Field Name 9: %field9| Value 9: %value9| Field Name 10: %field10| Value 10: %value10"
     export function send_to_srleng_com10(api_key: string, field1: string, value1: number, field2?: string, value2?: number, field3?: string, value3?: number, field4?: string, value4?: number, field5?: string, value5?: number, field6?: string, value6?: number, field7?: string, value7?: number, field8?: string, value8?: number, field9?: string, value9?: number, field10?: string, value10?: number, temp: boolean = false): void {
-        SRLE_setPara(SETHTTP_IP, "iot.srleng.com");
+        SRLE_setPara(SETHTTP_IP, "ict.srleng.edu.mo");
         let params = `${field1}=${value1}`;
 
         if (field2 != undefined)
@@ -453,7 +453,7 @@ namespace SRLE {
             params += `&${field10}=${value10}`
 
         let tempStr = ""
-        tempStr = `data/${api_key}?${params}&iot=srle`
+        tempStr = `iot/data/${api_key}?${params}&iot=srle`
         SRLE_ParaRunCommand(GET_URL, tempStr)
     }
 
