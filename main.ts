@@ -395,7 +395,7 @@ namespace SRLE {
     export function send_to_srleng_com(api_key: string, field: string, value: number, temp: boolean = false): void {
         SRLE_setPara(SETHTTP_IP, "ict.srleng.edu.mo")
         let tempStr = ""
-        tempStr = `iot/data/${api_key}?${field}=${value}&iot=srle`
+        tempStr = `iot/data/${api_key}?${field}=${value}`
         SRLE_ParaRunCommand(GET_URL, tempStr)
     }
 
@@ -419,7 +419,7 @@ namespace SRLE {
             params += `&${field5}=${value5}`
 
         let tempStr = ""
-        tempStr = `iot/data/${api_key}?${params}&iot=srle`
+        tempStr = `iot/data/${api_key}?${params}`
         SRLE_ParaRunCommand(GET_URL, tempStr)
     }
 
@@ -453,7 +453,7 @@ namespace SRLE {
             params += `&${field10}=${value10}`
 
         let tempStr = ""
-        tempStr = `iot/data/${api_key}?${params}&iot=srle`
+        tempStr = `iot/data/${api_key}?${params}`
         SRLE_ParaRunCommand(GET_URL, tempStr)
     }
 
