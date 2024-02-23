@@ -822,7 +822,7 @@ namespace SRLE {
 
         if (SRLEStatus == 'HTTP_REQUEST') {
             response_data = RECDATA;
-            basic.showNumber(len)
+            //basic.showNumber(len)
             basic.pause(1000)
         }
     }
