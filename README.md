@@ -1,5 +1,3 @@
-> Open this page at [https://seng199898.github.io/SRLE-IoT/](https://seng199898.github.io/SRLE-IoT/)
-
 ## Use as Extension
 
 This library is designed for use with the SRLE IoT system platform, enabling users to integrate and extend their projects with SRLE IoT capabilities. It can be added as an **extension** in MakeCode for easy integration.
